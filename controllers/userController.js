@@ -12,7 +12,6 @@ export function addUser(req, res) {
 export async function loginUser(req, res) {
     try {
         const { username, password } = req.body
-        console.log(req.body)
         const result = await validateUser(username, password)
         if(result.sucess) {
             const token = jwt.sign({ username: username }, 'key441234', {

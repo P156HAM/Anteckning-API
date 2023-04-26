@@ -1,0 +1,253 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.3",
+    "title": "Notes API",
+    "description": "API for antecknings uppgiften"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/notes": {
+      "get": {
+        "description": "Hämta anteckningar",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+          
+        },
+        "summary": "Returnerar alla anteckningar till användaren med rätt behörighet."
+      },
+      "post": {
+        "description": "Spara en anteckning",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["title", "text"],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "summary": "Lägger till en anteckning. Title och text måste vara med i requesten."
+      }
+    },
+    "/notes/search": {
+      "get": {
+        "description": "Söka bland anteckningar med title",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "summary": "Söker efter en anteckning med title som skickas med i URL."
+      }
+    },
+    "/notes/{noteid}": {
+      "delete": {
+        "description": "Ta bort en anteckning",
+        "parameters": [
+          {
+            "name": "noteid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "summary": "Ta bort en anteckning, antecknings ID måste hämtas från databasen."
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noteid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["title", "text"],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "summary": "Uppdatera en anteckning, antecknings ID måste hämtas från databasen."
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "description": "Skapa ett nytt konto",
+        "parameters": [
+          {
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "required": [ "username", "password" ],
+            "properties": {
+              "username": {
+                "type": "string",
+                "example": "any"
+              },
+              "password": {
+                "type": "string",
+                "example": "any"
+              }
+            }
+          }
+        }
+      ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "summary": "Skapa ett nytt konto, username och lösenord måste vara med i requesten."
+      }
+    },
+    "/user/login": {
+      "post": {
+        "description": "Logga in",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [ "username", "password" ],
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "summary": "logga in på ditt konto, username och lösenord måste vara med i requesten."
+      }
+    }
+  }
+}

@@ -67,7 +67,6 @@ export async function searchNotes(query, username) {
 export async function createUser(user) {
     
     const userExists = await userDB.findOne({ username: user.username })
-    console.log(userExists)
     if(userExists === null) {
         const hashedPassword = await bcrypt.hash(user.password, 10)
         const uuid = uuidv4()

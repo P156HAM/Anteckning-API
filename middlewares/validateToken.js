@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken"
 
 export function authenticateToken(req, res, next) {
-    console.log(" console log first i authenticateToken " , req.body)
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
@@ -14,8 +13,6 @@ export function authenticateToken(req, res, next) {
             msg: 'Not authorized'
         })
         req.user = user
-        console.log(" console log second i authenticateToken " , req.body)
-        console.log(req.params)
         next()
     })
 }
