@@ -26,14 +26,19 @@ export async function createNote (title, text, username) {
 }
 
 // Ta bort en anteckning från databasen baserat på ID
-export async function deleteNote (id) {
+export async function deleteNote (id, username) {
+    const existingNote = await noteDB.findOne({ id: id, username: username })
+    if(!existingNote) {
+        throw new Error("This note belongs to somone else, access denied!")
+    } 
+
     const numRemoved = await noteDB.remove({ id: id }, {});
     return numRemoved;
 }
 
 // Uppdatera en befintlig anteckning i databasen baserat på ID
-export async function updateNote (id, title, text) {
-    const existingNote = await noteDB.findOne({ id: id });
+export async function updateNote (id, title, text, username) {
+    const existingNote = await noteDB.findOne({ id: id, username: username });
 
     if (!existingNote) {
     throw new Error("Note not found");
